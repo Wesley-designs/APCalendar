@@ -28,8 +28,12 @@ public static int numberOfLeapYears(int year1, int year2)
 */
 public static int firstDayOfYear(int year)
 {
-    int a = (600-numberOfLeapYears(year-600, year))*365 + numberOfLeapYears(year-600, year)*366;
-    return (a%7);
+    int a = 1;
+    for (int i=0; i<year; i++) {
+        a++;
+        if (isLeapYear(i)) a++;
+    }
+    return a%7;
 
 }
 /** Returns n, where month, day, and year specify the nth day of the year.
@@ -38,8 +42,20 @@ public static int firstDayOfYear(int year)
 */
 private static int dayOfYear(int month, int day, int year)
 {
-    int a = month*12+day;
-    if (year%4==0 && year%100!=0) return a++;
+    int a = 0;
+    if (month>1) a+=31;
+    if (month>2) a+=28;
+    if (isLeapYear(year)) return a++;
+    if (month>3) a+=31;
+    if (month>4) a+=30;
+    if (month>5) a+=31;
+    if (month>6) a+=30;
+    if (month>7) a+=31;
+    if (month>8) a+=31;
+    if (month>9) a+=30;
+    if (month>10) a+=31;
+    if (month>11) a+=30;
+    a+=day;
     return a;
 }
 /** Returns the value representing the day of the week for the given date
@@ -48,6 +64,8 @@ private static int dayOfYear(int month, int day, int year)
 * Precondition: The date represented by month, day, year is a valid date.
 */
 public static int dayOfWeek(int month, int day, int year)
-{ /* to be implemented in part (b) */ }
+{
+    return ((dayOfYear(month, day, year)+firstDayOfYear(year))%7);
+}
 // There may be instance variables, constructors, and other methods not shown.
 }
