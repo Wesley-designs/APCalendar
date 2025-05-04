@@ -10,22 +10,38 @@ private static boolean isLeapYear(int year)
 */
 public static int numberOfLeapYears(int year1, int year2)
 {
-    if (year2-(year2%4)>year1) {
-        num++;
-        numbe
+    int a = year1;
+    for (int i=year1; i<year1+4; i++) {
+        if (i%4==0) {
+            a = i;
+            break;
+        }
     }
+    int b = 0;
+    for (int i=a; i<year2; i+=4) {
+        if (i%100 != 0) b++;
+    }
+    return b;
 }
 /** Returns the value representing the day of the week for the first day of year,
 * where 0 denotes Sunday, 1 denotes Monday, ..., and 6 denotes Saturday.
 */
-private static int firstDayOfYear(int year)
-{ /* implementation not shown */ }
+public static int firstDayOfYear(int year)
+{
+    int a = (600-numberOfLeapYears(year-600, year))*365 + numberOfLeapYears(year-600, year)*366;
+    return (a%7);
+
+}
 /** Returns n, where month, day, and year specify the nth day of the year.
 * Returns 1 for January 1 (month = 1, day = 1) of any year.
 * Precondition: The date represented by month, day, year is a valid date.
 */
 private static int dayOfYear(int month, int day, int year)
-{ /* implementation not shown */ }
+{
+    int a = month*12+day;
+    if (year%4==0 && year%100!=0) return a++;
+    return a;
+}
 /** Returns the value representing the day of the week for the given date
 * (month, day, year), where 0 denotes Sunday, 1 denotes Monday, ...,
 * and 6 denotes Saturday.
