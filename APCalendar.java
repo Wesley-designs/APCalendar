@@ -65,7 +65,7 @@ private static int dayOfYear(int month, int day, int year)
 */
 public static int dayOfWeek(int month, int day, int year)
 {
-    return ((dayOfYear(month, day, year)+firstDayOfYear(year))%7);
+    return ((dayOfYear(month, day, year)%7)+firstDayOfYear(year)-1);
 }
 // There may be instance variables, constructors, and other methods not shown.
 }
